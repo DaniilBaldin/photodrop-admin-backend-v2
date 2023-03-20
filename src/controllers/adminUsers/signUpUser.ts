@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { Send } from 'express-serve-static-core';
 import bcrypt from 'bcrypt';
 
 import Boom from '@hapi/boom';
@@ -7,22 +8,28 @@ import { signUpSchema } from '../../validation/signUpValidation';
 import { db } from '../../utils/databaseConnect';
 import { eq } from 'drizzle-orm/expressions';
 
-import { adminUsers } from '../../schema/adminUsers';
+import { AdminUser, adminUsers } from '../../schema/adminUsers';
 
-type User = {
-    user: string;
-    password: string;
-    dateCreated: string;
-};
+interface TypedRequestBody<T> extends Request {
+    body: T;
+}
 
-export const createUser = async (req: Request, res: Response, next: NextFunction) => {
+interface TypedResponse<ResBody> extends Response {
+    json: Send<ResBody, this>;
+}
+
+export const signUpUser = async (
+    req: TypedRequestBody<{ login: string; password: string }>,
+    res: TypedResponse<{ message: string; success: boolean }>,
+    next: NextFunction
+) => {
     try {
         const { login, password } = req.body;
         const { value, error } = signUpSchema.validate({
             login: login,
             password: password,
         });
-        if (error) throw Boom.badData(error.message);
+        if (error) throw Boom.badRequest(error.message);
 
         if (value) {
             const dateCreated = new Date().toISOString();
@@ -34,7 +41,8 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
                 throw Boom.conflict('User already exists!');
             }
 
-            const user: User = {
+            const user: AdminUser = {
+                id: 0,
                 user: login,
                 password: hashedPassword,
                 dateCreated: dateCreated,
