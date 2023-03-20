@@ -8,7 +8,7 @@ import { adminUsers } from '../../schema/adminUsers';
 export const getUsers = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const users = await db.select().from(adminUsers);
-        if (!users) throw Boom.badData();
+        if (!users) throw Boom.badRequest();
         res.status(200).json(users);
     } catch (err) {
         next(err);
