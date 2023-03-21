@@ -1,4 +1,6 @@
 import dotenv from 'dotenv';
+dotenv.config();
+
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
@@ -6,10 +8,9 @@ import path from 'path';
 
 import adminRouter from './routes/adminRouter';
 import albumRouter from './routes/albumRouter';
+import clientsRouter from './routes/clientsRouter';
 
 import { errorHandler } from './utils/errorHandler';
-
-dotenv.config();
 
 const { PORT } = process.env;
 const app = express();
@@ -28,11 +29,11 @@ app.use(
     })
 );
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (_req: Request, res: Response) => {
     res.send('Hello there! General Kenobi!');
 });
 
-app.use('/', adminRouter, albumRouter);
+app.use('/', adminRouter, albumRouter, clientsRouter);
 
 app.use(errorHandler);
 
