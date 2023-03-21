@@ -9,6 +9,7 @@ import path from 'path';
 import adminRouter from './routes/adminRouter';
 import albumRouter from './routes/albumRouter';
 import clientsRouter from './routes/clientsRouter';
+import uploadRouter from './routes/uploadRouter';
 
 import { errorHandler } from './utils/errorHandler';
 
@@ -33,7 +34,7 @@ app.get('/', (_req: Request, res: Response) => {
     res.send('Hello there! General Kenobi!');
 });
 
-app.use('/', adminRouter, albumRouter, clientsRouter);
+app.use('/', adminRouter, albumRouter, clientsRouter, uploadRouter);
 
 app.use(errorHandler);
 
