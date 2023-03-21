@@ -53,7 +53,7 @@ export const loginUser = async (
 
             const token = generateJWT(userCheck[0].id.toString());
 
-            res.status(201).json({
+            res.status(202).json({
                 token,
                 success: true,
                 user: {

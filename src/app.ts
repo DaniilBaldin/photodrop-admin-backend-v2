@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 
 import adminRouter from './routes/adminRouter';
+import albumRouter from './routes/albumRouter';
 
 import { errorHandler } from './utils/errorHandler';
 
@@ -31,7 +32,7 @@ app.get('/', (req: Request, res: Response) => {
     res.send('Hello there! General Kenobi!');
 });
 
-app.use('/', adminRouter);
+app.use('/', adminRouter, albumRouter);
 
 app.use(errorHandler);
 
