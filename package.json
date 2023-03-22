@@ -3,6 +3,10 @@
     "version": "1.0.0",
     "description": "",
     "main": "app.js",
+    "engines": {
+        "node": "v18.3.0",
+        "npm": "8.13.2"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "ts-node -r tsconfig-paths/register dist/app.js",
