@@ -70,7 +70,6 @@ export const uploadPhotos = async (
                     marked_url: markedFileUrl,
                     marked_logo: markedThumbnailUrl,
                 };
-                console.log(photo);
 
                 await db.insert(photos).values(photo);
             });

@@ -1,4 +1,5 @@
-import S3, { PutObjectRequest } from 'aws-sdk/clients/s3';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -9,10 +10,12 @@ const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
 const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 const region = process.env.S3_REGION;
 
-const s3 = new S3({
-    region,
-    accessKeyId,
-    secretAccessKey,
+const s3 = new S3Client({
+    region: region,
+    credentials: {
+        accessKeyId: accessKeyId as string,
+        secretAccessKey: secretAccessKey as string,
+    },
 });
 
 type Params = {
@@ -30,7 +33,8 @@ export const s3Upload = async (file: Buffer, extension: string) => {
         Key: key,
     };
 
-    await s3.putObject(params as PutObjectRequest).promise();
+    const command = new PutObjectCommand(params);
+    await s3.send(command);
 
     const photo_url = `https://${bucket}.s3.amazonaws.com/${params.Key}`;
     return photo_url;
