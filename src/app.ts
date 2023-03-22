@@ -11,7 +11,7 @@ import albumRouter from '~/routes/albumRouter';
 import clientsRouter from '~/routes/clientsRouter';
 import uploadRouter from '~/routes/uploadRouter';
 
-import { errorHandler } from './utils/errorHandler';
+import { errorHandler } from '~/utils/errorHandler';
 
 const { PORT } = process.env;
 const app = express();
