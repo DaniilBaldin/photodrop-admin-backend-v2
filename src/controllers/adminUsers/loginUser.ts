@@ -1,24 +1,17 @@
-import { Request, Response, NextFunction } from 'express';
-import { Send } from 'express-serve-static-core';
+import { NextFunction } from 'express';
+
 import bcrypt from 'bcrypt';
 
 import Boom from '@hapi/boom';
-import { signUpSchema } from '../../validation/signUpValidation';
+import { signUpSchema } from '~/validation/signUpValidation';
 
-import { db } from '../../utils/databaseConnect';
+import { db } from '~/utils/databaseConnect';
 import { eq } from 'drizzle-orm/expressions';
 
-import { adminUsers } from '../../schema/adminUsers';
+import { adminUsers } from '~/schema/adminUsers';
 
-import { generateJWT } from '../../utils/generateJWT';
-
-interface TypedRequestBody<T> extends Request {
-    body: T;
-}
-
-interface TypedResponse<ResBody> extends Response {
-    json: Send<ResBody, this>;
-}
+import { generateJWT } from '~/utils/generateJWT';
+import { TypedRequestBody, TypedResponse } from '~/types/types';
 
 export const loginUser = async (
     req: TypedRequestBody<{ login: string; password: string }>,

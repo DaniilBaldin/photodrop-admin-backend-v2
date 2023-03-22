@@ -1,11 +1,11 @@
 import Router from 'express';
 import bodyParser from 'body-parser';
 
-import { authMiddleware } from '../middlewares/authMiddleware';
+import { authMiddleware } from '~/middlewares/authMiddleware';
 
-import { getAllAlbums } from '../controllers/albums/getAllAlbums';
-import { getAlbumById } from '../controllers/albums/getAlbumById';
-import { createAlbum } from '../controllers/albums/createAlbum';
+import { getAllAlbums } from '~/controllers/albums/getAllAlbums';
+import { getAlbumById } from '~/controllers/albums/getAlbumById';
+import { createAlbum } from '~/controllers/albums/createAlbum';
 
 const albumRouter = Router();
 albumRouter.use(bodyParser.json());

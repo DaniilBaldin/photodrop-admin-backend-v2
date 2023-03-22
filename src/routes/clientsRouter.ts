@@ -1,9 +1,9 @@
 import Router from 'express';
 import bodyParser from 'body-parser';
 
-import { authMiddleware } from '../middlewares/authMiddleware';
+import { authMiddleware } from '~/middlewares/authMiddleware';
 
-import { getAllClients } from '../controllers/clients/getAllClients';
+import { getAllClients } from '~/controllers/clients/getAllClients';
 
 const clientsRouter = Router();
 clientsRouter.use(bodyParser.json());

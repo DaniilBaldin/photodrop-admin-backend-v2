@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ErrorRequestHandler, Response } from 'express';
-import { Send } from 'express-serve-static-core';
+import { ErrorRequestHandler } from 'express';
+
 import { Boom } from '@hapi/boom';
 
-interface TypedResponse<ResBody> extends Response {
-    json: Send<ResBody, this>;
-}
+import { TypedResponse } from '~/types/types';
 
 export const errorHandler: ErrorRequestHandler = (
     error,

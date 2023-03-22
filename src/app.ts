@@ -6,10 +6,10 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import path from 'path';
 
-import adminRouter from './routes/adminRouter';
-import albumRouter from './routes/albumRouter';
-import clientsRouter from './routes/clientsRouter';
-import uploadRouter from './routes/uploadRouter';
+import adminRouter from '~/routes/adminRouter';
+import albumRouter from '~/routes/albumRouter';
+import clientsRouter from '~/routes/clientsRouter';
+import uploadRouter from '~/routes/uploadRouter';
 
 import { errorHandler } from './utils/errorHandler';
 

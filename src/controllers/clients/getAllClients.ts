@@ -1,18 +1,11 @@
-import { Request, Response, NextFunction } from 'express';
-import { Send } from 'express-serve-static-core';
+import { NextFunction } from 'express';
+
 import Boom from '@hapi/boom';
 
-import { db } from '../../utils/databaseConnect';
+import { db } from '~/utils/databaseConnect';
 
-import { clients, Client } from '../../schema/clients';
-
-interface TypedRequest<T> extends Request {
-    person?: T;
-}
-
-interface TypedResponse<ResBody> extends Response {
-    json: Send<ResBody, this>;
-}
+import { clients, Client } from '~/schema/clients';
+import { TypedRequest, TypedResponse } from '~/types/types';
 
 export const getAllClients = async (
     _req: TypedRequest<{ id: string; iat: number; exp: number }>,

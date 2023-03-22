@@ -1,25 +1,16 @@
-import { Request, Response, NextFunction } from 'express';
-import { Send } from 'express-serve-static-core';
+import { NextFunction } from 'express';
 
 import Boom from '@hapi/boom';
 
-import { db } from '../../utils/databaseConnect';
+import { db } from '~/utils/databaseConnect';
 
-import { albums, Album } from '../../schema/albums';
+import { albums, Album } from '~/schema/albums';
 
-import { albumSchema } from '../../validation/albumValidation';
-
-interface TypedRequest<T, P> extends Request {
-    person?: T;
-    body: P;
-}
-
-interface TypedResponse<ResBody> extends Response {
-    json: Send<ResBody, this>;
-}
+import { albumSchema } from '~/validation/albumValidation';
+import { TypedRequestWithBody, TypedResponse } from '~/types/types';
 
 export const createAlbum = async (
-    req: TypedRequest<
+    req: TypedRequestWithBody<
         { id: string; iat: number; exp: number },
         { album_name: string; album_location: string; date: string }
     >,

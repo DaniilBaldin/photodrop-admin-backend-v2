@@ -1,24 +1,18 @@
-import { Request, Response, NextFunction } from 'express';
-import { Send } from 'express-serve-static-core';
+import { NextFunction } from 'express';
+
 import Boom from '@hapi/boom';
 
 import { db } from '../../utils/databaseConnect';
 
-import { imageConverter } from '../../utils/imageConverter';
-import { addWatermark } from '../../utils/addWatermark';
-import { makeThumbnail } from '../../utils/makeThumbnail';
-import { s3Upload } from '../../utils/s3Upload';
-import { Photo, photos } from '../../schema/photos';
+import { imageConverter } from '~/utils/imageConverter';
+import { addWatermark } from '~/utils/addWatermark';
+import { makeThumbnail } from '~/utils/makeThumbnail';
+import { s3Upload } from '~/utils/s3Upload';
+
+import { Photo, photos } from '~/schema/photos';
 
 import { photoUploadSchema } from '../../validation/photoUploadSchema';
-
-interface TypedRequest<T> extends Request {
-    person?: T;
-}
-
-interface TypedResponse<ResBody> extends Response {
-    json: Send<ResBody, this>;
-}
+import { TypedRequest, TypedResponse } from '~/types/types';
 
 export const uploadPhotos = async (
     req: TypedRequest<{ name: string; albumId: number; phoneNumbers: string; type: string }>,

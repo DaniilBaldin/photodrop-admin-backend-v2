@@ -1,22 +1,15 @@
-import { Request, Response, NextFunction } from 'express';
-import { Send } from 'express-serve-static-core';
+import { NextFunction } from 'express';
+
 import Boom from '@hapi/boom';
 
-import { db } from '../../utils/databaseConnect';
+import { db } from '~/utils/databaseConnect';
 
-import { Album, albums } from '../../schema/albums';
+import { Album, albums } from '~/schema/albums';
 
 import { and, eq, like } from 'drizzle-orm/expressions';
 
-import { paramsIdSchema } from '../../validation/albumValidation';
-
-interface TypedRequest<T> extends Request {
-    person?: T;
-}
-
-interface TypedResponse<ResBody> extends Response {
-    json: Send<ResBody, this>;
-}
+import { paramsIdSchema } from '~/validation/albumValidation';
+import { TypedRequest, TypedResponse } from '~/types/types';
 
 export const getAlbumById = async (
     req: TypedRequest<{ id: string; iat: number; exp: number }>,

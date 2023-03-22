@@ -5,13 +5,11 @@ import { Request, Response, NextFunction } from 'express';
 
 import Boom from '@hapi/boom';
 
-import jwt, { JwtPayload, Secret } from 'jsonwebtoken';
+import jwt, { Secret } from 'jsonwebtoken';
+
+import { TypedRequestJWT } from '~/types/types';
 
 const secretKey: string | undefined = process.env.TOKEN_KEY;
-
-export interface TypedRequest extends Request {
-    person: string | JwtPayload;
-}
 
 export const authMiddleware = (req: Request, _res: Response, next: NextFunction) => {
     if (req.method === 'OPTIONS') {
@@ -25,7 +23,7 @@ export const authMiddleware = (req: Request, _res: Response, next: NextFunction)
         }
 
         const person = jwt.verify(token, secretKey as Secret);
-        (req as TypedRequest).person = person;
+        (req as TypedRequestJWT).person = person;
         next();
     } catch (err) {
         next(err);
