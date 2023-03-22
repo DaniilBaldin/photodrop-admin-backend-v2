@@ -2,7 +2,7 @@ import { NextFunction } from 'express';
 
 import Boom from '@hapi/boom';
 
-import { db } from '../../utils/databaseConnect';
+import { db } from '~/utils/databaseConnect';
 
 import { imageConverter } from '~/utils/imageConverter';
 import { addWatermark } from '~/utils/addWatermark';
@@ -11,7 +11,7 @@ import { s3Upload } from '~/utils/s3Upload';
 
 import { Photo, photos } from '~/schema/photos';
 
-import { photoUploadSchema } from '../../validation/photoUploadSchema';
+import { photoUploadSchema } from '~/validation/photoUploadSchema';
 import { TypedRequest, TypedResponse } from '~/types/types';
 
 export const uploadPhotos = async (
