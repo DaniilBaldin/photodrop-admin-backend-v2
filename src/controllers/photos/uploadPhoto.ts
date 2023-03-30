@@ -20,6 +20,7 @@ export const uploadPhotos = async (
     next: NextFunction
 ) => {
     try {
+        if (!req.files) throw Boom.badData('No files selected!');
         const { albumId, phoneNumbers, type } = req.body;
         const { value, error } = photoUploadSchema.validate({
             albumId: albumId,
